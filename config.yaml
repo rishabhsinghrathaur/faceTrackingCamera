@@ -1,0 +1,47 @@
+# Face Tracking Camera Configuration
+
+camera:
+  index: 1                    # Camera device index (0, 1, etc.)
+  width: 640                  # Frame width
+  height: 480                 # Frame height
+  fps: 15                     # Target FPS for processing (lower = less CPU)
+  flip_horizontal: true      # Mirror the camera
+
+serial:
+  port: auto                  # "auto" to detect, or "COM3", "/dev/ttyUSB0", etc.
+  baud_rate: 9600
+  timeout: 2.0                # Seconds to wait for serial response
+
+tracking:
+  tolerance: 0.5              # Face recognition tolerance (lower = stricter)
+  smoothing_alpha: 0.4        # Smoothing factor (0-1, higher = more responsive)
+  min_servo_speed: 0.5        # Minimum angle change per frame (degrees)
+  scanning_speed: 2           # Servo speed when searching (degrees per frame)
+  scanning_dir_change_delay: 100  # Frames before reversing scan direction
+  lost_face_timeout: 1.0      # Seconds before entering search mode
+  center_tolerance: 40        # Pixels from center to consider "centered"
+
+servo:
+  center_angle: 90            # Center position (when face is centered)
+  min_angle: 0                # Minimum servo angle (calibration)
+  max_angle: 180              # Maximum servo angle (calibration)
+  default_min: 30             # Default min if not calibrated
+  default_max: 150            # Default max if not calibrated
+
+led:
+  pin: 13                     # Arduino LED pin (usually pin 13)
+  enabled: true               # Use LED for status indication
+
+faces:
+  model_path: "models/teacher_face.pkl"
+  multi_face: false           # Set true to recognize multiple faces
+  names:                     # Names for stored encodings (if multi_face)
+    - "teacher"
+
+debug:
+  show_video: true           # Show camera preview window
+  show_guides: true          # Show center line and bounding boxes
+  show_fps: true             # Display FPS counter
+  log_level: "INFO"          # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/face_tracker.log"
+  save_snapshot: false       # Save frame when face detected
